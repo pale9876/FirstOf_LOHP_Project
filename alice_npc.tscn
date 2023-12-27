@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3 uid="uid://pfueaw8w1i3a"]
+
+[ext_resource type="Script" path="res://alice_npc.gd" id="1_rccop"]
+[ext_resource type="Texture2D" uid="uid://bs7yqy8jplvmn" path="res://sprite/characterAnimated/alice-Sheet.png" id="1_y3bu8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y2had"]
+radius = 38.0132
+
+[sub_resource type="Animation" id="Animation_y5ums"]
+resource_name = "IdleLeft"
+length = 4.4
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8, 4, 4.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
+}
+
+[sub_resource type="Animation" id="Animation_2sxvd"]
+resource_name = "IdleRight"
+
+[sub_resource type="Animation" id="Animation_d5nsf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fhjwf"]
+_data = {
+"IdleLeft": SubResource("Animation_y5ums"),
+"IdleRight": SubResource("Animation_2sxvd"),
+"RESET": SubResource("Animation_d5nsf")
+}
+
+[node name="AliceNPC" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_rccop")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -54)
+texture = ExtResource("1_y3bu8")
+hframes = 22
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -42)
+shape = SubResource("CircleShape2D_y2had")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fhjwf")
+}

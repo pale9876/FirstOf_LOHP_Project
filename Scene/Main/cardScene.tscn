@@ -1,0 +1,142 @@
+[gd_scene load_steps=8 format=3 uid="uid://gx0ttvtap552"]
+
+[ext_resource type="Texture2D" uid="uid://4sq5qac7gw7x" path="res://sprite/card/cardback.png" id="1_wniwe"]
+[ext_resource type="Texture2D" uid="uid://bpir08dh16ssn" path="res://sprite/card/falling.png" id="2_dy8vg"]
+[ext_resource type="Texture2D" uid="uid://cof0lidc2t0wv" path="res://sprite/card/card_front.png" id="3_xypm0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mght4"]
+
+[sub_resource type="Animation" id="Animation_cg146"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/cardBack:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flip/cardBack/cardFront:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flip/cardBack/cardImage:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_uv0kn"]
+resource_name = "cardFlip"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/cardBack:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.8),
+"transitions": PackedFloat32Array(2.14355, 0.287175, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flip/cardBack/cardFront:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.308151),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flip/cardBack/cardImage:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.30815),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_skwre"]
+_data = {
+"RESET": SubResource("Animation_cg146"),
+"cardFlip": SubResource("Animation_uv0kn")
+}
+
+[node name="cardScene" type="Node2D"]
+position = Vector2(1268, 604)
+metadata/_edit_group_ = true
+
+[node name="Flip" type="Node2D" parent="."]
+
+[node name="cardBack" type="Sprite2D" parent="Flip"]
+texture = ExtResource("1_wniwe")
+
+[node name="cardImage" type="Sprite2D" parent="Flip/cardBack"]
+position = Vector2(0, -18)
+texture = ExtResource("2_dy8vg")
+
+[node name="cardFront" type="Sprite2D" parent="Flip/cardBack"]
+texture = ExtResource("3_xypm0")
+
+[node name="Control" type="Control" parent="Flip"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = 13.0
+offset_right = 119.0
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.345804, 0.351353)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Flip/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextEdit" type="TextEdit" parent="Flip/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mght4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_skwre")
+}

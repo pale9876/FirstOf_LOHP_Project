@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmgesxy0bpire"]
+
+[ext_resource type="Script" path="res://Scene/Main/main.gd" id="1_ie5ei"]
+[ext_resource type="PackedScene" uid="uid://b2p1hwlrjx6h0" path="res://background.tscn" id="2_aakv2"]
+[ext_resource type="PackedScene" uid="uid://ctjoin37130tl" path="res://player.tscn" id="2_d3urg"]
+[ext_resource type="PackedScene" uid="uid://bkpjfwtu0iqqr" path="res://dutchNPC.tscn" id="4_14bhl"]
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_ie5ei")
+
+[node name="background" parent="." instance=ExtResource("2_aakv2")]
+
+[node name="object" type="Marker2D" parent="." groups=["marker"]]
+position = Vector2(-137, -646)
+
+[node name="player" parent="." instance=ExtResource("2_d3urg")]
+z_index = 1
+position = Vector2(837, 269)
+collision_layer = 3
+collision_mask = 3
+floor_constant_speed = true
+metadata/_edit_group_ = true
+
+[node name="Camera2D" type="Camera2D" parent="player"]
+offset = Vector2(0, -20)
+
+[node name="dutchNPC" parent="." instance=ExtResource("4_14bhl")]
+position = Vector2(792, 288)

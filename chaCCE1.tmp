@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://cfcahqemt2adb"]
+
+[ext_resource type="Script" path="res://character_state_machine.gd" id="1_ssjq7"]
+[ext_resource type="Script" path="res://Ground.gd" id="2_d15b6"]
+[ext_resource type="Script" path="res://AirState.gd" id="3_av640"]
+[ext_resource type="Script" path="res://Landing.gd" id="4_256id"]
+[ext_resource type="Script" path="res://Falling.gd" id="5_nw2o6"]
+
+[node name="CharacterStateMachine" type="Node" node_paths=PackedStringArray("current_state")]
+script = ExtResource("1_ssjq7")
+current_state = NodePath("Ground")
+
+[node name="Ground" type="Node" parent="." node_paths=PackedStringArray("airState", "fallingState")]
+script = ExtResource("2_d15b6")
+airState = NodePath("../Air")
+fallingState = NodePath("../Falling")
+
+[node name="Air" type="Node" parent="." node_paths=PackedStringArray("landing_state", "groundState")]
+script = ExtResource("3_av640")
+landing_state = NodePath("../Landing")
+groundState = NodePath("../Ground")
+
+[node name="Landing" type="Node" parent="." node_paths=PackedStringArray("groundState", "fallingState", "airState")]
+script = ExtResource("4_256id")
+groundState = NodePath("../Ground")
+fallingState = NodePath("../Falling")
+airState = NodePath("../Air")
+
+[node name="Falling" type="Node" parent="." node_paths=PackedStringArray("groundState")]
+script = ExtResource("5_nw2o6")
+groundState = NodePath("../Ground")

@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://boerddin7pvng"]
+
+[ext_resource type="Texture2D" uid="uid://dax8q7njag8r0" path="res://sprite/characterAnimated/janghwa-Sheet.png" id="1_cqopj"]
+[ext_resource type="Script" path="res://janhwa_npc.gd" id="1_qntmb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i56ja"]
+radius = 23.0
+
+[sub_resource type="Animation" id="Animation_l7f4f"]
+resource_name = "IdleLeft"
+length = 3.4
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+}
+
+[sub_resource type="Animation" id="Animation_bb40a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jbsxh"]
+_data = {
+"IdleLeft": SubResource("Animation_l7f4f"),
+"RESET": SubResource("Animation_bb40a")
+}
+
+[node name="JanhwaNPC" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_qntmb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -63)
+texture = ExtResource("1_cqopj")
+hframes = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -32)
+shape = SubResource("CircleShape2D_i56ja")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jbsxh")
+}

@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://cv65ainatg4wk"]
+
+[ext_resource type="Script" path="res://enemy_dummy.gd" id="1_sriby"]
+[ext_resource type="PackedScene" uid="uid://bbm84osryd287" path="res://EnemyHitBox.tscn" id="2_ucweu"]
+[ext_resource type="PackedScene" uid="uid://bh2po3hvg2has" path="res://enemy_hurt_area.tscn" id="3_3qh8a"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_huckt"]
+
+[node name="enemy_dummy" type="CharacterBody2D"]
+script = ExtResource("1_sriby")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+
+[node name="texture" type="Sprite2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_huckt")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="EnemyHitBox" parent="." instance=ExtResource("2_ucweu")]
+collision_layer = 8
+collision_mask = 0
+
+[node name="enemyHurtArea" parent="." instance=ExtResource("3_3qh8a")]
+collision_layer = 0
+collision_mask = 2
+
+[editable path="EnemyHitBox"]
+[editable path="enemyHurtArea"]

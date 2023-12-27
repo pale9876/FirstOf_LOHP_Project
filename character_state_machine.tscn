@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfcahqemt2adb"]
+
+[ext_resource type="Script" path="res://scripts/character_state_machine.gd" id="1_dl3r0"]
+[ext_resource type="Script" path="res://scripts/Ground.gd" id="2_m1jl1"]
+[ext_resource type="Script" path="res://scripts/AirState.gd" id="3_0dwep"]
+[ext_resource type="Script" path="res://scripts/Landing.gd" id="4_2suol"]
+
+[node name="CharacterStateMachine" type="Node" node_paths=PackedStringArray("current_state")]
+script = ExtResource("1_dl3r0")
+current_state = NodePath("Ground")
+
+[node name="Ground" type="Node" parent="." node_paths=PackedStringArray("airState")]
+script = ExtResource("2_m1jl1")
+airState = NodePath("../Air")
+
+[node name="Air" type="Node" parent="." node_paths=PackedStringArray("landing_state", "groundState")]
+script = ExtResource("3_0dwep")
+landing_state = NodePath("../Landing")
+groundState = NodePath("../Ground")
+can_double_jump = true
+
+[node name="Landing" type="Node" parent="." node_paths=PackedStringArray("groundState", "airState")]
+script = ExtResource("4_2suol")
+groundState = NodePath("../Ground")
+airState = NodePath("../Air")

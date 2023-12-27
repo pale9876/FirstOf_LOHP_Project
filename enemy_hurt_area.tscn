@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bh2po3hvg2has"]
+
+[ext_resource type="Script" path="res://enemy_hurt_area.gd" id="1_3eonf"]
+
+[node name="enemyHurtArea" type="Area2D"]
+script = ExtResource("1_3eonf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
